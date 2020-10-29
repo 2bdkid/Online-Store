@@ -1,8 +1,5 @@
 package database;
 
-import common.ItemDoesNotExist;
-import common.ItemExists;
-
 public class DatabaseCommandFactory {
     /**
      * Get add item command
