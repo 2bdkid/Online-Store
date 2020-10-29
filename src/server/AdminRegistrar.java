@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AdminRegistrar {
-
     private final Map<String, String> entries;
     private int nextToken;
 
