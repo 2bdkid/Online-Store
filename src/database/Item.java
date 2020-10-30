@@ -55,6 +55,14 @@ public class Item {
     }
 
     /**
+     * Get item quantity
+     * @return item quantity
+     */
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    /**
      * Set item name
      * @param name new name
      */
@@ -78,6 +86,18 @@ public class Item {
         this.price = price;
     }
 
+    /**
+     * Set item quantity
+     * @param quantity new quantity
+     */
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    /**
+     * String representation of Item
+     * @return string representation
+     */
     public String toString() {
         return String.format("%s (%s) %s | %f", name, type, description, price);
     }

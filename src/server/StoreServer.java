@@ -1,6 +1,7 @@
 package server;
 
 import common.AdminController;
+import common.AdminRegistrar;
 import database.ItemDatabase;
 
 import java.rmi.Naming;
@@ -9,10 +10,13 @@ import java.rmi.RemoteException;
 public class StoreServer {
     private final AdminController adminController;
     private final int rmiPort;
+    private final AdminRegistrar adminRegistrar;
 
     public StoreServer(int rmiBindPort) {
         rmiPort = rmiBindPort;
-        adminController = new AdminControllerImpl();
+        adminRegistrar = new AdminRegistrarImpl();
+        adminController = new AdminControllerImpl(adminRegistrar);
+        // TODO: export RMI objects
     }
 
     public static void main(String[] args) {

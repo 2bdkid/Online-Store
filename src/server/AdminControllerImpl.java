@@ -13,9 +13,10 @@ public class AdminControllerImpl implements AdminController {
 
     /**
      * Implementation of AdminController
+     * @param adminRegistrar administrator registrar, expects RMI stub
      */
-    public AdminControllerImpl() {
-        adminRegistrar = new AdminRegistrar();
+    public AdminControllerImpl(AdminRegistrar adminRegistrar) {
+        this.adminRegistrar = adminRegistrar;
         tokens = new HashMap<>();
         Integer nextToken = 0;
     }
