@@ -35,27 +35,27 @@ public interface AdminDispatcher extends Remote {
      * @param item item name
      * @param description new item description
      * @throws RemoteException RMI error
-     * @throws ItemDoesNotExist item does not exist
+     * @throws DatabaseError item does not exist
      */
-    void updateItemDescription(String item, String description) throws RemoteException, ItemDoesNotExist;
+    void updateItemDescription(String item, String description) throws RemoteException, DatabaseError;
 
     /**
      * Update item price
      * @param item item name
      * @param price new item price
      * @throws RemoteException RMI error
-     * @throws ItemDoesNotExist item does not exist
+     * @throws DatabaseError item does not exist
      */
-    void updateItemPrice(String item, Double price) throws RemoteException, ItemDoesNotExist;
+    void updateItemPrice(String item, Double price) throws RemoteException, DatabaseError;
 
     /**
      * Update item quantity
      * @param item item name
      * @param quantity new quantity
      * @throws RemoteException RMI error
-     * @throws ItemDoesNotExist item does not exist
+     * @throws DatabaseError item does not exist
      */
-    void updateItemQuantity(String item, Integer quantity) throws RemoteException, ItemDoesNotExist;
+    void updateItemQuantity(String item, Integer quantity) throws RemoteException, DatabaseError;
 
     /**
      * Add item
@@ -64,15 +64,15 @@ public interface AdminDispatcher extends Remote {
      * @param type item type
      * @param price item price
      * @throws RemoteException RMI error
-     * @throws ItemExists item already exists
+     * @throws DatabaseError item already exists
      */
-    void addItem(String name, String description, String type, Double price) throws RemoteException, ItemExists;
+    void addItem(String name, String description, String type, Double price) throws RemoteException, DatabaseError;
 
     /**
      * Remove item
      * @param name item name
      * @throws RemoteException RMI error
-     * @throws ItemDoesNotExist item does not exist
+     * @throws DatabaseError item does not exist
      */
-    void removeItem(String name) throws RemoteException, ItemDoesNotExist;
+    void removeItem(String name) throws RemoteException, DatabaseError;
 }

@@ -1,18 +1,25 @@
 package server;
 
 import common.*;
+import database.DatabaseCommand;
+import database.DatabaseCommandFactory;
+import database.ItemDatabase;
 
 import java.rmi.RemoteException;
 
 public class AdminDispatcherImpl implements AdminDispatcher {
     private final AdminController adminController;
+    private final ItemDatabase database;
+    private final DatabaseCommandFactory commandFactory;
 
     /**
      * Implementation of AdminDispatcher
      * @param adminController admin controller to handle account registration
      */
-    public AdminDispatcherImpl(AdminController adminController) {
+    public AdminDispatcherImpl(AdminController adminController, ItemDatabase database) {
         this.adminController = adminController;
+        this.database = database;
+        commandFactory = new DatabaseCommandFactory();
     }
 
     /**
@@ -56,10 +63,11 @@ public class AdminDispatcherImpl implements AdminDispatcher {
      * @param item        item name
      * @param description new item description
      * @throws RemoteException  RMI error
-     * @throws ItemDoesNotExist item does not exist
+     * @throws DatabaseError item does not exist
      */
-    public void updateItemDescription(String item, String description) throws RemoteException, ItemDoesNotExist {
-
+    public void updateItemDescription(String item, String description) throws RemoteException, DatabaseError {
+        DatabaseCommand command = commandFactory.getUpdateItemDescriptionCommand(item, description);
+        database.acceptCommand(command);
     }
 
     /**
@@ -68,10 +76,11 @@ public class AdminDispatcherImpl implements AdminDispatcher {
      * @param item  item name
      * @param price new item price
      * @throws RemoteException  RMI error
-     * @throws ItemDoesNotExist item does not exist
+     * @throws DatabaseError item does not exist
      */
-    public void updateItemPrice(String item, Double price) throws RemoteException, ItemDoesNotExist {
-
+    public void updateItemPrice(String item, Double price) throws RemoteException, DatabaseError {
+        DatabaseCommand command = commandFactory.getUpdateItemPriceCommand(item, price);
+        database.acceptCommand(command);
     }
 
     /**
@@ -80,10 +89,11 @@ public class AdminDispatcherImpl implements AdminDispatcher {
      * @param item     item name
      * @param quantity new quantity
      * @throws RemoteException  RMI error
-     * @throws ItemDoesNotExist item does not exist
+     * @throws DatabaseError item does not exist
      */
-    public void updateItemQuantity(String item, Integer quantity) throws RemoteException, ItemDoesNotExist {
-
+    public void updateItemQuantity(String item, Integer quantity) throws RemoteException, DatabaseError {
+        DatabaseCommand command = commandFactory.getUpdateItemQuantity(item, quantity);
+        database.acceptCommand(command);
     }
 
     /**
@@ -94,10 +104,11 @@ public class AdminDispatcherImpl implements AdminDispatcher {
      * @param type        item type
      * @param price       item price
      * @throws RemoteException RMI error
-     * @throws ItemExists      item already exists
+     * @throws DatabaseError item already exists
      */
-    public void addItem(String name, String description, String type, Double price) throws RemoteException, ItemExists {
-
+    public void addItem(String name, String description, String type, Double price) throws RemoteException, DatabaseError {
+        DatabaseCommand command = commandFactory.getAddItemCommand(name, description, type, price);
+        database.acceptCommand(command);
     }
 
     /**
@@ -105,9 +116,10 @@ public class AdminDispatcherImpl implements AdminDispatcher {
      *
      * @param name item name
      * @throws RemoteException  RMI error
-     * @throws ItemDoesNotExist item does not exist
+     * @throws DatabaseError item does not exist
      */
-    public void removeItem(String name) throws RemoteException, ItemDoesNotExist {
-
+    public void removeItem(String name) throws RemoteException, DatabaseError {
+        DatabaseCommand command = commandFactory.getRemoveItemCommand(name);
+        database.acceptCommand(command);
     }
 }

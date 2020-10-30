@@ -1,6 +1,7 @@
 package server;
 
 import common.*;
+import database.ItemDatabase;
 
 import java.rmi.RemoteException;
 import java.util.HashMap;
@@ -9,14 +10,16 @@ import java.util.Map;
 public class AdminControllerImpl implements AdminController {
     private final AdminRegistrar adminRegistrar;
     private final Map<String, Integer> tokens;
+    private final ItemDatabase database;
     private Integer nextToken;
 
     /**
      * Implementation of AdminController
      * @param adminRegistrar administrator registrar, expects RMI stub
      */
-    public AdminControllerImpl(AdminRegistrar adminRegistrar) {
+    public AdminControllerImpl(AdminRegistrar adminRegistrar, ItemDatabase database) {
         this.adminRegistrar = adminRegistrar;
+        this.database = database;
         tokens = new HashMap<>();
         Integer nextToken = 0;
     }
@@ -72,6 +75,6 @@ public class AdminControllerImpl implements AdminController {
             throw new InvalidToken(token);
         }
 
-        return new AdminDispatcherImpl(this);
+        return new AdminDispatcherImpl(this, database);
     }
 }
