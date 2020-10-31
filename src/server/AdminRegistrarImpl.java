@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 public class AdminRegistrarImpl implements AdminRegistrar {
     private final Map<String, String> entries;
-    private int nextToken;
 
     /**
      * Handles administrator account registration
