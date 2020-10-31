@@ -27,7 +27,7 @@ public class ItemDatabase {
             while (databaseReader.hasNext()) {
                 String line = databaseReader.next();
                 String[] data = line.split(",");
-                db.add(new Item(data[0], data[2], data[3], Double.parseDouble(data[4]), Integer.parseInt(data[5])));
+                db.add(new Item(data[0], data[1], data[2], Double.parseDouble(data[3]), Integer.parseInt(data[4])));
             }
         }
     }
