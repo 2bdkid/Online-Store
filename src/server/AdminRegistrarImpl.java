@@ -4,13 +4,11 @@ import common.AdminRegistrar;
 import common.UsernameDoesNotExist;
 import common.UsernameExists;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class AdminRegistrarImpl implements AdminRegistrar {
     private final Map<String, String> entries;
@@ -22,20 +20,16 @@ public class AdminRegistrarImpl implements AdminRegistrar {
      */
     public AdminRegistrarImpl() {
         entries = new HashMap<>();
-        InputStream adminAccountStream = getClass().getResourceAsStream("/adminaccounts.csv");
+        InputStream adminAccountStream = getClass().getResourceAsStream("adminaccounts.csv");
 
         if (adminAccountStream != null) {
-            BufferedReader accountReader = new BufferedReader(new InputStreamReader(adminAccountStream));
+            Scanner accounts = new Scanner(adminAccountStream);
+            accounts.useDelimiter("\n");
 
-            String line;
-            while (true) {
-                try {
-                    if ((line = accountReader.readLine()) == null) break;
-                    String[] data = line.split(",");
-                    entries.put(data[0], data[1]);
-                } catch (IOException ignored) {
-
-                }
+            while (accounts.hasNext()) {
+                String line = accounts.next();
+                String[] data = line.split(",");
+                entries.put(data[0], data[1]);
             }
         }
     }

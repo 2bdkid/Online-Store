@@ -21,7 +21,7 @@ public class AdminControllerImpl implements AdminController {
         this.adminRegistrar = adminRegistrar;
         this.database = database;
         tokens = new HashMap<>();
-        Integer nextToken = 0;
+        nextToken = 0;
     }
 
     /**
@@ -34,7 +34,7 @@ public class AdminControllerImpl implements AdminController {
     public void register(String username, String password) throws RemoteException, UsernameExists {
         adminRegistrar.createRegistration(username, password);
         tokens.put(username, nextToken);
-        nextToken++;
+        ++nextToken;
     }
 
     /**
