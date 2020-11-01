@@ -6,6 +6,7 @@ import common.ItemDoesNotExist;
 import common.ItemExists;
 
 import java.io.InputStream;
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -111,7 +112,7 @@ public class ItemDatabaseImpl implements ItemDatabase {
      * @param command command to execute
      * @throws DatabaseError database error
      */
-    public void acceptCommand(DatabaseCommand command) throws DatabaseError {
+    public void acceptCommand(DatabaseCommand command) throws DatabaseError, RemoteException {
         command.execute(this);
     }
 }

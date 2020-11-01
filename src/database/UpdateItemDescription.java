@@ -1,6 +1,9 @@
 package database;
 
+import common.ItemDatabase;
 import common.ItemDoesNotExist;
+
+import java.rmi.RemoteException;
 
 public class UpdateItemDescription extends DatabaseCommand {
     private final String item;
@@ -20,7 +23,7 @@ public class UpdateItemDescription extends DatabaseCommand {
      * Change item description in database
      * @param database database to operate on
      */
-    public void execute(ItemDatabaseImpl database) throws ItemDoesNotExist {
+    public void execute(ItemDatabase database) throws ItemDoesNotExist, RemoteException {
         database.updateItemDescription(item, description);
     }
 }

@@ -1,6 +1,9 @@
 package database;
 
+import common.ItemDatabase;
 import common.ItemExists;
+
+import java.rmi.RemoteException;
 
 public class AddItem extends DatabaseCommand {
     private final String item;
@@ -26,7 +29,7 @@ public class AddItem extends DatabaseCommand {
      * Add item to database
      * @param database database to operate on
      */
-    public void execute(ItemDatabaseImpl database) throws ItemExists {
+    public void execute(ItemDatabase database) throws ItemExists, RemoteException {
         database.add(item, description, type, price);
     }
 }

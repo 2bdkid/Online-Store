@@ -1,6 +1,9 @@
 package database;
 
+import common.ItemDatabase;
 import common.ItemDoesNotExist;
+
+import java.rmi.RemoteException;
 
 public class RemoveItem extends DatabaseCommand {
     private final String item;
@@ -17,7 +20,7 @@ public class RemoveItem extends DatabaseCommand {
      * Remove item from database
      * @param database database to operate on
      */
-    public void execute(ItemDatabaseImpl database) throws ItemDoesNotExist {
+    public void execute(ItemDatabase database) throws ItemDoesNotExist, RemoteException {
         database.remove(item);
     }
 }
