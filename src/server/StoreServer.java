@@ -11,42 +11,48 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class StoreServer {
     private final AdminController adminController;
-    private final int rmiPort;
-    private final AdminRegistrar adminRegistrar;
-    private final ItemDatabase database;
 
     /**
-     * Exports controller objects and registrars to RMI
-     * @param rmiBindPort RMI port
+     * Exports controllers, registrars, and database to RMI
+     * @param rmiPort RMI port
      * @throws RemoteException RMI error
      */
-    public StoreServer(int rmiBindPort) throws RemoteException {
-        rmiPort = rmiBindPort;
+    public StoreServer(int rmiPort) throws RemoteException {
         // stubs
-        database = (ItemDatabase) UnicastRemoteObject.exportObject(new ItemDatabaseImpl(), rmiPort);
-        adminRegistrar = (AdminRegistrar) UnicastRemoteObject.exportObject(new AdminRegistrarImpl(), rmiPort) ;
+        ItemDatabase database = (ItemDatabase) UnicastRemoteObject.exportObject(new ItemDatabaseImpl(), rmiPort);
+        AdminRegistrar adminRegistrar = (AdminRegistrar) UnicastRemoteObject.exportObject(new AdminRegistrarImpl(), rmiPort) ;
         adminController = (AdminController) UnicastRemoteObject.exportObject(new AdminControllerImpl(adminRegistrar, database), rmiPort);
     }
 
+    /**
+     * Server backend program. Starts RMI registry and creates StoreServer object
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         int rmiPort = 1099;
+
+        try {
+            java.rmi.registry.LocateRegistry.createRegistry(rmiPort);
+        } catch (RemoteException e) {
+            System.err.printf("Exception: %s%n", e.getMessage());
+            System.err.println("Could not start registry");
+            return;
+        }
+
         StoreServer server;
 
         try {
             server = new StoreServer(rmiPort);
         } catch (RemoteException e) {
-            e.printStackTrace(System.err);
-            System.err.println("Could not export admin controller or admin registrar to RMI");
+            System.err.printf("Exception: %s%n", e.getMessage());
+            System.err.println("Could not export all objects to RMI");
             return;
         }
 
         try {
             server.start();
-        } catch (RemoteException e) {
-            e.printStackTrace(System.err);
-            System.err.printf("Unable to bind to RMI port %s%n", rmiPort);
         } catch (Exception e) {
-            e.printStackTrace(System.err);
+            System.err.printf("Exception: %s%n", e.getMessage());
             System.err.println("Unable to bind admin controller");
         }
     }
@@ -56,7 +62,6 @@ public class StoreServer {
      * @throws Exception RMI error
      */
     public void start() throws Exception {
-        java.rmi.registry.LocateRegistry.createRegistry(rmiPort);
         Naming.bind("//localhost/admincontroller", adminController);
     }
 }
