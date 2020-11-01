@@ -27,10 +27,10 @@ public class RegisterFromExistingAccount {
 
         System.out.println("Login to existing administrator account");
         System.out.print("Username: ");
-        String existingUsername = stdin.next();
+        String existingUsername = stdin.nextLine();
 
         System.out.print("Password: ");
-        String existingPassword = stdin.next();
+        String existingPassword = stdin.nextLine();
 
         Integer token;
 
@@ -54,10 +54,10 @@ public class RegisterFromExistingAccount {
 
         System.out.println("Creating new administrator account");
         System.out.print("New username: ");
-        String newUsername = stdin.next();
+        String newUsername = stdin.nextLine();
 
         System.out.print("New password: ");
-        String newPassword = stdin.next();
+        String newPassword = stdin.nextLine();
 
         try {
             dispatcher.addAdmin(newUsername, newPassword);
@@ -67,6 +67,6 @@ public class RegisterFromExistingAccount {
             return;
         }
 
-        System.out.printf("New administrator account %s created", newUsername);
+        System.out.printf("New administrator account %s created%n", newUsername);
     }
 }

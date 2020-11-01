@@ -6,9 +6,9 @@ import common.AdminDispatcher;
 import java.rmi.Naming;
 import java.util.Scanner;
 
-public class UpdateItemDescription {
+public class AddItem {
     /**
-     * Program to update item description
+     * Program to add new item
      * @param args command line arguments
      */
     public static void main(String[] args) {
@@ -51,21 +51,34 @@ public class UpdateItemDescription {
             return;
         }
 
-        System.out.println("Updating item description");
-        System.out.print("Item name: ");
+        System.out.println("Adding new item");
+        System.out.print("New item name: ");
         String item = stdin.nextLine();
 
-        System.out.print("New description: ");
+        System.out.print("New item description: ");
         String description = stdin.nextLine();
 
+        System.out.print("New item type: ");
+        String type = stdin.nextLine();
+
+        Double price = null;
+        while (price == null) {
+            try {
+                System.out.print("New price: ");
+                price = Double.parseDouble(stdin.nextLine());
+            } catch (Exception e) {
+                System.out.println("Try that again");
+            }
+        }
+
         try {
-            dispatcher.updateItemDescription(item, description);
+            dispatcher.addItem(item, description, type, price);
         } catch (Exception e) {
             System.err.printf("Exception: %s%n", e.getMessage());
-            System.err.println("Description was not updated");
+            System.err.println("New item was not added");
             return;
         }
 
-        System.out.printf("Item %s description updated%n", item);
+        System.out.printf("New item %s added%n", item);
     }
 }

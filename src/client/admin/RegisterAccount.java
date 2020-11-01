@@ -27,10 +27,10 @@ public class RegisterAccount {
 
         System.out.println("Creating new administrator account");
         System.out.print("Username: ");
-        String username = stdin.next();
+        String username = stdin.nextLine();
 
         System.out.print("Password: ");
-        String password = stdin.next();
+        String password = stdin.nextLine();
 
         try {
             controller.register(username, password);
@@ -40,6 +40,6 @@ public class RegisterAccount {
             return;
         }
 
-        System.out.printf("Account %s created", username);
+        System.out.printf("Account %s created%n", username);
     }
 }
