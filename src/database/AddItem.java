@@ -26,7 +26,7 @@ public class AddItem extends DatabaseCommand {
      * Add item to database
      * @param database database to operate on
      */
-    public void execute(ItemDatabase database) throws ItemExists {
+    public void execute(ItemDatabaseImpl database) throws ItemExists {
         database.add(item, description, type, price);
     }
 }

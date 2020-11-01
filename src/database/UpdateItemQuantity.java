@@ -20,7 +20,7 @@ public class UpdateItemQuantity extends DatabaseCommand {
      * Update item quantity in database
      * @param database database to operate on
      */
-    public void execute(ItemDatabase database) throws ItemDoesNotExist {
+    public void execute(ItemDatabaseImpl database) throws ItemDoesNotExist {
         database.updateItemQuantity(item, quantity);
     }
 }

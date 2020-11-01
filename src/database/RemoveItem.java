@@ -17,7 +17,7 @@ public class RemoveItem extends DatabaseCommand {
      * Remove item from database
      * @param database database to operate on
      */
-    public void execute(ItemDatabase database) throws ItemDoesNotExist {
+    public void execute(ItemDatabaseImpl database) throws ItemDoesNotExist {
         database.remove(item);
     }
 }

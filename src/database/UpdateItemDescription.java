@@ -20,7 +20,7 @@ public class UpdateItemDescription extends DatabaseCommand {
      * Change item description in database
      * @param database database to operate on
      */
-    public void execute(ItemDatabase database) throws ItemDoesNotExist {
+    public void execute(ItemDatabaseImpl database) throws ItemDoesNotExist {
         database.updateItemDescription(item, description);
     }
 }

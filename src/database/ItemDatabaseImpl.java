@@ -1,23 +1,23 @@
 package database;
 
 import common.DatabaseError;
+import common.ItemDatabase;
 import common.ItemDoesNotExist;
 import common.ItemExists;
 
 import java.io.InputStream;
-import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ItemDatabase implements Serializable {
+public class ItemDatabaseImpl implements ItemDatabase {
     private final List<Item> db;
 
     /**
      * Database with items
      * Reads items from itemdatabase.csv
      */
-    public ItemDatabase() {
+    public ItemDatabaseImpl() {
         db = new ArrayList<>();
         // read itemdatabase.csv
         InputStream itemDatabaseStream = getClass().getResourceAsStream("itemdatabase.csv");

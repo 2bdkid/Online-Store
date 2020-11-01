@@ -2,7 +2,8 @@ package server;
 
 import common.AdminController;
 import common.AdminRegistrar;
-import database.ItemDatabase;
+import common.ItemDatabase;
+import database.ItemDatabaseImpl;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
@@ -21,8 +22,8 @@ public class StoreServer {
      */
     public StoreServer(int rmiBindPort) throws RemoteException {
         rmiPort = rmiBindPort;
-        database = new ItemDatabase();
         // stubs
+        database = (ItemDatabase) UnicastRemoteObject.exportObject(new ItemDatabaseImpl(), rmiPort);
         adminRegistrar = (AdminRegistrar) UnicastRemoteObject.exportObject(new AdminRegistrarImpl(), rmiPort) ;
         adminController = (AdminController) UnicastRemoteObject.exportObject(new AdminControllerImpl(adminRegistrar, database), rmiPort);
     }

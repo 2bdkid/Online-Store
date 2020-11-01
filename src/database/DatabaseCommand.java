@@ -2,10 +2,12 @@ package database;
 
 import common.DatabaseError;
 
-public abstract class DatabaseCommand {
+import java.io.Serializable;
+
+public abstract class DatabaseCommand implements Serializable {
     /**
      * Execute command on database
      * @param database database to operate on
      */
-    public abstract void execute(ItemDatabase database) throws DatabaseError;
+    public abstract void execute(ItemDatabaseImpl database) throws DatabaseError;
 }
