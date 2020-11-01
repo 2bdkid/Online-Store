@@ -6,12 +6,13 @@ import database.ItemDatabase;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class AdminControllerImpl implements AdminController {
     private final AdminRegistrar adminRegistrar;
     private final Map<String, Integer> tokens;
     private final ItemDatabase database;
-    private Integer nextToken;
+    private final Random randomizer;
 
     /**
      * Implementation of AdminController
@@ -21,7 +22,7 @@ public class AdminControllerImpl implements AdminController {
         this.adminRegistrar = adminRegistrar;
         this.database = database;
         tokens = new HashMap<>();
-        nextToken = 0;
+        randomizer = new Random();
     }
 
     /**
@@ -33,8 +34,6 @@ public class AdminControllerImpl implements AdminController {
      */
     public void register(String username, String password) throws RemoteException, UsernameExists {
         adminRegistrar.createRegistration(username, password);
-        tokens.put(username, nextToken);
-        ++nextToken;
     }
 
     /**
@@ -51,7 +50,9 @@ public class AdminControllerImpl implements AdminController {
             throw new InvalidPassword(username);
         }
 
-        return tokens.get(username);
+        Integer token = randomizer.nextInt();
+        tokens.put(username, token);
+        return token;
     }
 
     /**

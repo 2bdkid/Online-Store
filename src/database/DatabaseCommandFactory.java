@@ -1,6 +1,8 @@
 package database;
 
-public class DatabaseCommandFactory {
+import java.io.Serializable;
+
+public class DatabaseCommandFactory implements Serializable {
     /**
      * Get add item command
      * @param item new item name

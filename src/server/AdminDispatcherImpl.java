@@ -5,9 +5,10 @@ import database.DatabaseCommand;
 import database.DatabaseCommandFactory;
 import database.ItemDatabase;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class AdminDispatcherImpl implements AdminDispatcher {
+public class AdminDispatcherImpl implements AdminDispatcher, Serializable {
     private final AdminController adminController;
     private final ItemDatabase database;
     private final DatabaseCommandFactory commandFactory;

@@ -5,12 +5,14 @@ import common.ItemDoesNotExist;
 import common.ItemExists;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ItemDatabase {
+public class ItemDatabase implements Serializable {
     private final List<Item> db;
+
     /**
      * Database with items
      * Reads items from itemdatabase.csv

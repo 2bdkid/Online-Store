@@ -11,15 +11,14 @@ public class RegisterAccount {
     /**
      * Program to register administrator account with store server
      * @param args command line arguments
-     * @throws RemoteException RMI error
      */
-    public static void main(String[] args) throws RemoteException {
+    public static void main(String[] args) {
         AdminController controller;
 
         try {
             controller = (AdminController) Naming.lookup("//localhost/admincontroller");
         } catch (Exception e) {
-            e.printStackTrace(System.err);
+            System.err.printf("Exception: %s%n", e.getMessage());
             System.err.println("Could not connect to admin controller");
             return;
         }
@@ -35,9 +34,12 @@ public class RegisterAccount {
 
         try {
             controller.register(username, password);
-        } catch (UsernameExists e) {
+        } catch (Exception e) {
             System.err.printf("Exception: %s%n", e.getMessage());
             System.err.println("Account was not registered");
+            return;
         }
+
+        System.out.printf("Account %s created", username);
     }
 }
