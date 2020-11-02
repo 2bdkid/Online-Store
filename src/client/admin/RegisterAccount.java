@@ -1,10 +1,8 @@
 package client.admin;
 
 import common.AdminController;
-import common.UsernameExists;
 
 import java.rmi.Naming;
-import java.rmi.RemoteException;
 import java.util.Scanner;
 
 public class RegisterAccount {

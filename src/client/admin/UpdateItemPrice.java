@@ -4,7 +4,6 @@ import common.AdminController;
 import common.AdminDispatcher;
 
 import java.rmi.Naming;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UpdateItemPrice {
