@@ -40,7 +40,7 @@ public class AdminRegistrarImpl implements AdminRegistrar {
      * @throws RemoteException RMI error
      * @throws UsernameExists username already used
      */
-    public void createRegistration(String username, String password) throws RemoteException, UsernameExists {
+    public void register(String username, String password) throws RemoteException, UsernameExists {
         // check if username already exists
         if (entries.containsKey(username)) {
             throw new UsernameExists(username);
