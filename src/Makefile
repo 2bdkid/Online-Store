@@ -7,6 +7,7 @@ all: StoreServer.jar
 
 .PHONY: classes
 classes: $(programs)
+	@mkdir ../out/
 	@javac -d ../out/ $^
 
 .PHONY: changeport
