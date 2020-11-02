@@ -38,7 +38,7 @@ make
 
 ## Running
 
-StoreServer.jar will execute the server backend when ran without any arguments.
+`StoreServer.jar` will execute the server backend when ran without any arguments.
 It also contains all the client programs.
 StoreServer opens an RMI registry on port 33333.
 
