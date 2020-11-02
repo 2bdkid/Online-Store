@@ -4,7 +4,7 @@ Brady Dean
 
 ## StoreServer
 
-StoreServer is the name my online store service.
+StoreServer is the name of my online store service.
 The system consists of one server backend, and many client programs.
 Client programs and the backend communicate through Remote Method Invocation.
 
