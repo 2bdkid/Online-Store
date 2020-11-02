@@ -5,8 +5,8 @@ Brady Dean
 ## StoreServer
 
 StoreServer is the name my online store service.
-The system consists of one server backend and many client programs.
-Communication between the client programs and backend is done through Remote Method Invocation.
+The system consists of one server backend, and many client programs.
+Client programs and the backend communicate through Remote Method Invocation.
 
 ## Directory Structure Reference
 
@@ -32,6 +32,7 @@ src/database/itemdatabase.csv  - database items created when server starts
 ## Building
 
 ```
+cd src
 make
 ```
 
@@ -39,27 +40,27 @@ make
 
 StoreServer.jar will execute the server backend when ran without any arguments.
 It also contains all the client programs.
-StoreServer opens a RMI registry on port 33333.
+StoreServer opens an RMI registry on port 33333.
 
-Administator client programs:
+Administrator client programs:
 
-- client.admin.RegisterAccount              - Register new administrator account
-- client.admin.RegisterFromExistingAccount  - Register new administrator account through existing account
-- client.admin.AddItem                      - Add new item to database
-- client.admin.RemoveItem                   - Remove item from database
-- client.admin.UpdateItemDescription        - Update item description
-- client.admin.UpdateItemPrice              - Update item price
-- client.admin.UpdateItemQuantity           - Update item quantity
+- `client.admin.RegisterAccount`              - Register new administrator account
+- `client.admin.RegisterFromExistingAccount`  - Register new administrator account through existing account
+- `client.admin.AddItem`                      - Add new item to database
+- `client.admin.RemoveItem`                   - Remove item from database
+- `client.admin.UpdateItemDescription`        - Update item description
+- `client.admin.UpdateItemPrice`              - Update item price
+- `client.admin.UpdateItemQuantity`           - Update item quantity
 
-Customer client programs;
+Customer client programs:
 
 - TODO
 
 Server backend program:
 
-- server.StoreServer (default)
+- `server.StoreServer` - Start server backend (default)
 
-To execute a client program, where PROGRAM is one of the above:
+To execute a client program, where `PROGRAM` is one of the above:
 
 ```
 java -cp StoreServer.jar PROGRAM
