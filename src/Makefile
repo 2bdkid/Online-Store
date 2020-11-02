@@ -2,9 +2,9 @@ programs := $(wildcard client/admin/*.java) $(wildcard client/customer/*.java) s
 
 all: jar
 
-classes: %(programs)
+classes: $(programs)
 	javac -d ../out/ $^
 
-jar: $(classes)
+jar: classes
 	jar cmf META-INF/MANIFEST.MF StoreServer.jar -C ../out/ . server/adminaccounts.csv database/itemdatabase.csv
 
