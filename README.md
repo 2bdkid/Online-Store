@@ -32,12 +32,16 @@ src/database/itemdatabase.csv  - database items created when server starts
 ## Building
 
 The server backend and client programs are hard-coded to send/receive on the same RMI port.
+The client programs are also hard-coded to look up the RMI registry from the same host.
 The `changeport` target changes the hard-coded port across all files if needed.
 The default port is 54321.
+The `changeserverhost` target changes the hard-coded host across all client program files.
+The default host is in-csci-rrpc01
 
 ```
 cd src
 make changeport PORT=55555  # needed if port 54321 is in use on Tesla
+make changeserverhost HOST=in-csci-rrpc02  # needed if server is not running on in-csci-rrpc01
 make
 ```
 
@@ -48,6 +52,7 @@ make
 The server backend starts when `StoreServer.jar` is ran with no arguments.
 The server creates an RMI registry on localhost and binds to port 54321, unless changed above.
 Client programs look for an RMI registry on in-csci-rrpc01, unless changed above.
+
 Administrator client programs:
 
 - `client.admin.RegisterAccount`              - Register new administrator account
