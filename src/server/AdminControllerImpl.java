@@ -33,7 +33,7 @@ public class AdminControllerImpl implements AdminController {
      * @throws UsernameExists username already used
      */
     public void register(String username, String password) throws RemoteException, UsernameExists {
-        adminRegistrar.createRegistration(username, password);
+        adminRegistrar.register(username, password);
     }
 
     /**

@@ -11,7 +11,7 @@ public interface AdminRegistrar extends Remote {
      * @throws RemoteException RMI error
      * @throws UsernameExists username already used
      */
-    void createRegistration(String username, String password) throws RemoteException, UsernameExists;
+    void register(String username, String password) throws RemoteException, UsernameExists;
 
     /**
      *
