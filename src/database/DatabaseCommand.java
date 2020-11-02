@@ -1,7 +1,6 @@
 package database;
 
 import common.DatabaseError;
-import common.ItemDatabase;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;

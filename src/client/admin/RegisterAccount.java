@@ -14,7 +14,7 @@ public class RegisterAccount {
         AdminController controller;
 
         try {
-            controller = (AdminController) Naming.lookup("//localhost/admincontroller");
+            controller = (AdminController) Naming.lookup("//localhost:54321/admincontroller");
         } catch (Exception e) {
             System.err.printf("Exception: %s%n", e.getMessage());
             System.err.println("Could not connect to admin controller");

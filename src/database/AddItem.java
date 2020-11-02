@@ -1,6 +1,5 @@
 package database;
 
-import common.ItemDatabase;
 import common.ItemExists;
 
 import java.rmi.RemoteException;

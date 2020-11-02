@@ -1,6 +1,8 @@
-package common;
+package database;
 
-import database.DatabaseCommand;
+import common.DatabaseError;
+import common.ItemDoesNotExist;
+import common.ItemExists;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -32,7 +34,7 @@ public interface ItemDatabase extends Remote {
      * @throws ItemDoesNotExist item does not exist
      * @throws RemoteException RMI error
      */
-    public void updateItemDescription(String name, String description) throws RemoteException, ItemDoesNotExist;
+    void updateItemDescription(String name, String description) throws RemoteException, ItemDoesNotExist;
 
     /**
      * Change item price

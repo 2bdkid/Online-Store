@@ -2,7 +2,7 @@ package server;
 
 import common.AdminController;
 import common.AdminRegistrar;
-import common.ItemDatabase;
+import database.ItemDatabase;
 import database.ItemDatabaseImpl;
 
 import java.rmi.Naming;
@@ -29,7 +29,7 @@ public class StoreServer {
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        int rmiPort = 1099;
+        int rmiPort = 54321;
 
         try {
             java.rmi.registry.LocateRegistry.createRegistry(rmiPort);
@@ -54,6 +54,7 @@ public class StoreServer {
         } catch (Exception e) {
             System.err.printf("Exception: %s%n", e.getMessage());
             System.err.println("Unable to bind admin controller");
+            return;
         }
     }
 
@@ -62,6 +63,6 @@ public class StoreServer {
      * @throws Exception RMI error
      */
     public void start() throws Exception {
-        Naming.bind("//localhost/admincontroller", adminController);
+        Naming.bind("//localhost:54321/admincontroller", adminController);
     }
 }
