@@ -40,7 +40,7 @@ The default host is in-csci-rrpc01
 
 ```
 cd src
-make changeport PORT=55555  # needed if port 54321 is in use on Tesla
+make changeport PORT=55555  # needed if port 54321 is in use
 make changeserverhost HOST=in-csci-rrpc02  # needed if server is not running on in-csci-rrpc01
 make
 ```
