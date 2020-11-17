@@ -6,10 +6,11 @@ import database.Item;
 import database.ItemDatabase;
 import database.ItemUnavailable;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
 
-public class CustomerDispatcherImpl implements CustomerDispatcher {
+public class CustomerDispatcherImpl implements CustomerDispatcher, Serializable {
     private final ItemDatabase database;
 
     public CustomerDispatcherImpl(ItemDatabase database) {
