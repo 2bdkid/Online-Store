@@ -93,7 +93,7 @@ public class BrowseAndCheckout {
                     System.out.printf("%d %s\n", item.getQuantity(), item.getName());
                     total += item.getPrice();
                 }
-                System.out.printf("Total: $%f", total);
+                System.out.printf("Total: $%.2f", total);
                 System.out.println();
             } else {
                 try {
