@@ -9,17 +9,19 @@ import java.util.Map;
 import java.util.Random;
 
 public class AdminControllerImpl implements AdminController {
-    private final AdminRegistrar adminRegistrar;
+    private final Registrar adminRegistrar;
     private final Map<String, Integer> tokens;
     private final ItemDatabase database;
     private final Random randomizer;
+    private final Registrar customerRegistrar;
 
     /**
      * Implementation of AdminController
      * @param adminRegistrar administrator registrar, expects RMI stub
      */
-    public AdminControllerImpl(AdminRegistrar adminRegistrar, ItemDatabase database) {
+    public AdminControllerImpl(Registrar adminRegistrar, Registrar customerRegistrar, CustomerController customerController, ItemDatabase database) {
         this.adminRegistrar = adminRegistrar;
+        this.customerRegistrar = customerRegistrar;
         this.database = database;
         tokens = new HashMap<>();
         randomizer = new Random();
@@ -76,6 +78,6 @@ public class AdminControllerImpl implements AdminController {
             throw new InvalidToken(token);
         }
 
-        return new AdminDispatcherImpl(this, database);
+        return new AdminDispatcherImpl(this, customerRegistrar, database);
     }
 }

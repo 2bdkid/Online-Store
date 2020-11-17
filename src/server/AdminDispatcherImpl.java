@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 
 public class AdminDispatcherImpl implements AdminDispatcher, Serializable {
     private final AdminController adminController;
+    private final Registrar customerRegistrar;
     private final ItemDatabase database;
     private final DatabaseCommandFactory commandFactory;
 
@@ -17,8 +18,9 @@ public class AdminDispatcherImpl implements AdminDispatcher, Serializable {
      * Implementation of AdminDispatcher
      * @param adminController admin controller to handle account registration
      */
-    public AdminDispatcherImpl(AdminController adminController, ItemDatabase database) {
+    public AdminDispatcherImpl(AdminController adminController, Registrar customerRegistrar, ItemDatabase database) {
         this.adminController = adminController;
+        this.customerRegistrar = customerRegistrar;
         this.database = database;
         commandFactory = new DatabaseCommandFactory();
     }
@@ -44,7 +46,7 @@ public class AdminDispatcherImpl implements AdminDispatcher, Serializable {
      * @throws UsernameExists  username already taken
      */
     public void addCustomer(String username, String password) throws RemoteException, UsernameExists {
-
+        customerRegistrar.register(username, password);
     }
 
     /**
@@ -55,7 +57,7 @@ public class AdminDispatcherImpl implements AdminDispatcher, Serializable {
      * @throws UsernameDoesNotExist account does not exist
      */
     public void removeCustomer(String customer) throws RemoteException, UsernameDoesNotExist {
-
+        customerRegistrar.deregister(customer);
     }
 
     /**

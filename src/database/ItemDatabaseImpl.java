@@ -114,4 +114,13 @@ public class ItemDatabaseImpl implements ItemDatabase {
     public void acceptCommand(DatabaseCommand command) throws DatabaseError, RemoteException {
         command.execute(this);
     }
+
+    /**
+     * Get list of database items
+     * @return list of items
+     * @throws RemoteException RMI error
+     */
+    public List<Item> getItems() throws RemoteException {
+        return db;
+    }
 }

@@ -10,16 +10,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class AdminRegistrarImpl implements Registrar {
+public class CustomerRegistrarImpl implements Registrar {
     private final Map<String, String> entries;
 
     /**
      * Handles administrator account registration
-     * Reads existing accounts from adminaccounts.csv
+     * Reads existing accounts from customeraccounts.csv
      */
-    public AdminRegistrarImpl() {
+    public CustomerRegistrarImpl() {
         entries = new HashMap<>();
-        InputStream adminAccountStream = getClass().getResourceAsStream("adminaccounts.csv");
+        InputStream adminAccountStream = getClass().getResourceAsStream("customeraccounts.csv");
 
         if (adminAccountStream != null) {
             Scanner accounts = new Scanner(adminAccountStream);
@@ -35,10 +35,11 @@ public class AdminRegistrarImpl implements Registrar {
 
     /**
      * create registration in registrar
+     *
      * @param username account username
      * @param password account password
      * @throws RemoteException RMI error
-     * @throws UsernameExists username already used
+     * @throws UsernameExists  username already used
      */
     public void register(String username, String password) throws RemoteException, UsernameExists {
         // check if username already exists
@@ -65,12 +66,11 @@ public class AdminRegistrarImpl implements Registrar {
     }
 
     /**
-     *
      * @param username username to authenticate
      * @param password password to authenticate
      * @return true if username is authenticated
-     * @throws RemoteException RMI error
-     * @throws UsernameDoesNotExist usename does not exist
+     * @throws RemoteException      RMI error
+     * @throws UsernameDoesNotExist username does not exist
      */
     public Boolean authenticate(String username, String password) throws RemoteException, UsernameDoesNotExist {
         // find user entry or throw

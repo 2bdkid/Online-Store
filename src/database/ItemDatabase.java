@@ -6,6 +6,7 @@ import common.ItemExists;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 public interface ItemDatabase extends Remote {
     /**
@@ -61,4 +62,11 @@ public interface ItemDatabase extends Remote {
      * @throws RemoteException RMI error
      */
     void acceptCommand(DatabaseCommand command) throws RemoteException, DatabaseError;
+
+    /**
+     * Get list of database items
+     * @return list of items
+     * @throws RemoteException RMI error
+     */
+    List<Item> getItems() throws RemoteException;
 }

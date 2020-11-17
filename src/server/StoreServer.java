@@ -1,7 +1,8 @@
 package server;
 
 import common.AdminController;
-import common.AdminRegistrar;
+import common.CustomerController;
+import common.Registrar;
 import database.ItemDatabase;
 import database.ItemDatabaseImpl;
 
@@ -11,6 +12,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class StoreServer {
     private final AdminController adminController;
+    private final CustomerController customerController;
 
     /**
      * Exports controllers, registrars, and database to RMI
@@ -20,8 +22,10 @@ public class StoreServer {
     public StoreServer(int rmiPort) throws RemoteException {
         // stubs
         ItemDatabase database = (ItemDatabase) UnicastRemoteObject.exportObject(new ItemDatabaseImpl(), rmiPort);
-        AdminRegistrar adminRegistrar = (AdminRegistrar) UnicastRemoteObject.exportObject(new AdminRegistrarImpl(), rmiPort) ;
-        adminController = (AdminController) UnicastRemoteObject.exportObject(new AdminControllerImpl(adminRegistrar, database), rmiPort);
+        Registrar adminRegistrar = (Registrar) UnicastRemoteObject.exportObject(new AdminRegistrarImpl(), rmiPort);
+        Registrar customerRegistrar = (Registrar) UnicastRemoteObject.exportObject(new CustomerRegistrarImpl(), rmiPort);
+        customerController = (CustomerController) UnicastRemoteObject.exportObject(new CustomerControllerImpl(customerRegistrar, database), rmiPort);
+        adminController = (AdminController) UnicastRemoteObject.exportObject(new AdminControllerImpl(adminRegistrar, customerRegistrar, customerController, database), rmiPort);
     }
 
     /**
@@ -53,7 +57,7 @@ public class StoreServer {
             server.start();
         } catch (Exception e) {
             System.err.printf("Exception: %s%n", e.getMessage());
-            System.err.println("Unable to bind admin controller");
+            System.err.println("Unable to bind admin controller or customer controller");
             return;
         }
     }
@@ -64,5 +68,6 @@ public class StoreServer {
      */
     public void start() throws Exception {
         Naming.bind("//localhost:54321/admincontroller", adminController);
+        Naming.bind("//localhost:54321/customercontroller", customerController);
     }
 }
