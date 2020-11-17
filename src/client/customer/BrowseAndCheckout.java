@@ -77,23 +77,37 @@ public class BrowseAndCheckout {
 
         System.out.println("Add items to your cart by specifying the ID followed by the quantity requested");
         System.out.println("Eg: 0 2");
+        System.out.println("Enter \"cart\" to see items in your cart");
         System.out.println("Enter \"checkout\" when you are ready to checkout");
 
-        String line = stdin.nextLine();
+        String line;
         List<Item> cart = new ArrayList<>();
 
-        while (!line.equals("checkout")) {
-            try {
-                Scanner linescanner = new Scanner(line);
-                int id = linescanner.nextInt();
-                int quantity = linescanner.nextInt();
-                Item item = items.get(id);
-                item.setQuantity(quantity);
-                cart.add(item);
-            } catch (Exception e) {
-                System.out.println("Please enter just the ID and quantity");
-            }
+        while (true) {
             line = stdin.nextLine();
+            if (line.equals("checkout")) {
+                break;
+            } else if (line.equals("cart")) {
+                Double total = 0.0;
+                for (Item item : cart) {
+                    System.out.printf("%d %s\n", item.getQuantity(), item.getName());
+                    total += item.getPrice();
+                }
+                System.out.printf("Total: $%f", total);
+                System.out.println();
+            } else {
+                try {
+                    Scanner linescanner = new Scanner(line);
+                    int id = linescanner.nextInt();
+                    int quantity = linescanner.nextInt();
+                    Item item = items.get(id);
+                    item.setQuantity(quantity);
+                    cart.add(item);
+                } catch (Exception e) {
+                    System.out.println("Please enter just the ID and quantity");
+                }
+            }
+
         }
 
         try {
