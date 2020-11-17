@@ -92,7 +92,6 @@ public class BrowseAndCheckout {
                 cart.add(item);
             } catch (Exception e) {
                 System.out.println("Please enter just the ID and quantity");
-                stdin.nextLine();
             }
             line = stdin.nextLine();
         }
