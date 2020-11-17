@@ -23,5 +23,5 @@ changeserverhost:
 	done
 
 StoreServer.jar: classes
-	jar cmf META-INF/MANIFEST.MF StoreServer.jar -C ../out/ . server/adminaccounts.csv database/itemdatabase.csv
+	jar cmf META-INF/MANIFEST.MF StoreServer.jar -C ../out/ . server/customeraccounts.csv server/adminaccounts.csv database/itemdatabase.csv
 
