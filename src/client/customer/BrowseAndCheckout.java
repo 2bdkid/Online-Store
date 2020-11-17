@@ -79,19 +79,21 @@ public class BrowseAndCheckout {
         System.out.println("Eg: 0 2");
         System.out.println("Enter \"checkout\" when you are ready to checkout");
 
-        stdin.useDelimiter("\n");
         String line = stdin.nextLine();
-
         List<Item> cart = new ArrayList<>();
 
         while (!line.equals("checkout")) {
-            line = stdin.nextLine();
-            Scanner linescanner = new Scanner(line);
-            int id = linescanner.nextInt();
-            int quantity = linescanner.nextInt();
-            Item item = items.get(id);
-            item.setQuantity(quantity);
-            cart.add(item);
+            try {
+                Scanner linescanner = new Scanner(line);
+                int id = linescanner.nextInt();
+                int quantity = linescanner.nextInt();
+                Item item = items.get(id);
+                item.setQuantity(quantity);
+                cart.add(item);
+                line = stdin.nextLine();
+            } catch (Exception e) {
+                System.out.println("Please enter just the ID and quantity");
+            }
         }
 
         try {
