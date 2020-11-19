@@ -27,10 +27,12 @@ Client programs and the backend communicate through Remote Method Invocation.
 
 Interfaces:
 
-- `AdminController`  - Administrator front-controller entry point, also RMI interface. Handles authentication
-- `AdminRegistrar`   - Administrator account database, also RMI interface. Handles authentication
-- `AdminDispatcher`  - Administrator front-controller that accepts commands once authenticated, also RMI interface
-- `ItemDatabase`     - Defined commands on the item database, also RMI interface. Accepts `DatabaseCommand`s
+- `AdminController`     - Administrator front-controller entry point, also RMI interface. Handles authentication
+- `CustomerController`  - Customer front-controller entry point, also RMI interface. Handles authentication. **New in project 3**
+- `Registrar`           - Account database, also RMI interface. Handles authentication
+- `AdminDispatcher`     - Administrator front-controller that accepts commands once authenticated, also RMI interface
+- `CustomerDispatcher`  - Customer front-controller that accepts commands once authenticated, also RMI interface. **New in project 3**
+- `ItemDatabase`        - Defined commands on the item database, also RMI interface. Accepts `DatabaseCommand`s
 
 Database Command System:
 
@@ -44,12 +46,15 @@ Database Command System:
 
 Implementations:
 
-- `StoreServer`          - Main server backend object, contains exported `AdminController` and `ItemDatabase`
-- `AdminControllerImpl`  - Handles first-contact authentication and tokens
-- `AdminRegistrarImpl`   - Handles authentication
-- `AdminDispatchImpl`    - Dispatches administrator commands to database and registrar
-- `ItemDatabaseImpl`     - Maintains `Item`s
-- `Item`                 - Contains database item attributes
+- `StoreServer`             - Main server backend object, contains exported `AdminController` and `ItemDatabase`
+- `AdminControllerImpl`     - Handles first-contact authentication and tokens
+- `CustomerControllerImpl`  - Handles first-contact authentication and tokens. **New in project 3**
+- `AdminRegistrarImpl`      - Handles authentication of administrator accounts
+- `CustomerRegistrarImpl`   - Handles authentication of customer accounts. **New in project 3**
+- `AdminDispatcherImpl`     - Dispatches administrator commands to database and registrar
+- `CustomerDispatcherImpl`  - Dispatches customer commands to database and registrar. **New in project 3**
+- `ItemDatabaseImpl`        - Maintains `Item`s
+- `Item`                    - Contains database item attributes
 
 ## Directory Structure Reference
 
@@ -68,8 +73,9 @@ src/Makefile         - builds StoreServer.jar
 These files contain initial values:
 
 ```
-src/server/adminaccounts.csv   - administrator accounts created when server starts
-src/database/itemdatabase.csv  - database items created when server starts
+src/server/adminaccounts.csv     - administrator accounts created when server starts
+src/server/customeraccounts.csv  - customer accounts created when server starts
+src/database/itemdatabase.csv    - database items created when server starts
 ```
 
 ## Building
@@ -110,10 +116,13 @@ Administrator client programs:
 - `client.admin.UpdateItemDescription`        - Update item description
 - `client.admin.UpdateItemPrice`              - Update item price
 - `client.admin.UpdateItemQuantity`           - Update item quantity
+- `client.admin.RegisterCustomerAccount`      - Register new customer account. **New in project 3**
+- `client.admin.RemoveCustomerAccount`        - Remove existing customer account. **New in project 3**
 
 Customer client programs:
 
-- TODO FOR PROJECT 3
+- `client.customer.RegisterAccount`   - Register new customer account. **New in project 3**
+- `client.customer.BrowseAndCheckout`  - Add items to cart and checkout. **New in project 3**
 
 Server backend program:
 
@@ -175,4 +184,119 @@ Updating item price
 Item name: Cake
 New price: 8.50
 Item Cake price updated
+```
+
+Register new customer account
+
+```
+[bddean@in-csci-rrpc02 src]$ java -cp StoreServer.jar client.customer.RegisterAccount
+Creating new customer account
+Username: brady
+Password: password
+Account brady created
+```
+
+Browse and checkout items
+
+```
+[bddean@in-csci-rrpc02 src]$ java -cp StoreServer.jar client.customer.BrowseAndCheckout
+Login to existing customer account
+Username: brady
+Password: password
+
+Available Items
+ID: 0
+Name: Bread
+Price: $2.50
+Type: Dry Grocery
+Description: Loaf of bread
+Available quantity: 10
+
+ID: 1
+Name: Cake
+Price: $8.50
+Type: Bakery
+Description: Classic birthday dessert
+Available quantity: 10
+
+ID: 2
+Name: Hot Dog
+Price: $1.00
+Type: Chilled
+Description: Mystery meat tube
+Available quantity: 20
+
+Add items to your cart by specifying the ID followed by the quantity requested
+Eg: 0 2
+Enter "cart" to see items in your cart
+Enter "checkout" when you are ready to checkout
+0 2
+2 10
+cart
+2 Bread
+10 Hot Dog
+Total: $3.50
+checkout
+Cart was successfully checked out
+```
+
+Now inventory has been reduced
+
+```
+[bddean@in-csci-rrpc02 src]$ java -cp StoreServer.jar client.customer.BrowseAndCheckout
+Login to existing customer account
+Username: brady
+Password: password
+
+Available Items
+ID: 0
+Name: Bread
+Price: $2.50
+Type: Dry Grocery
+Description: Loaf of bread
+Available quantity: 8
+
+ID: 1
+Name: Cake
+Price: $8.50
+Type: Bakery
+Description: Classic birthday dessert
+Available quantity: 10
+
+ID: 2
+Name: Hot Dog
+Price: $1.00
+Type: Chilled
+Description: Mystery meat tube
+Available quantity: 10
+
+Add items to your cart by specifying the ID followed by the quantity requested
+Eg: 0 2
+Enter "cart" to see items in your cart
+Enter "checkout" when you are ready to checkout
+checkout
+Cart was successfully checked out
+```
+
+Remove customer account `brady`
+
+```
+[bddean@in-csci-rrpc02 src]$ java -cp StoreServer.jar client.admin.RemoveCustomerAccount
+Login to existing administrator account
+Username: brady
+Password: password
+Removing customer account
+Customer username: brady
+Customer account brady removed
+```
+
+Customer 'brady' can no longer log in
+
+```
+[bddean@in-csci-rrpc02 src]$ java -cp StoreServer.jar client.customer.BrowseAndCheckout
+Login to existing customer account
+Username: brady
+Password: password
+Exception: The username brady does not exist
+Could not authenticate
 ```
