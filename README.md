@@ -290,7 +290,7 @@ Customer username: brady
 Customer account brady removed
 ```
 
-Customer 'brady' can no longer log in
+Customer `brady` can no longer log in
 
 ```
 [bddean@in-csci-rrpc02 src]$ java -cp StoreServer.jar client.customer.BrowseAndCheckout
